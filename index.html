@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA e Direito: O Que os Advogados Precisam Saber</title>
+  <style>
+    /* =============================================
+       RESET E BASE
+       ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #fafaf8;
+      --bg-alt: #f3f2ee;
+      --text: #1a1a1a;
+      --text-muted: #555550;
+      --accent: #2c4a7c;
+      --accent-light: #4a6fa5;
+      --accent-pale: #e8edf5;
+      --rule: #d8d5cc;
+      --serif: Georgia, 'Times New Roman', Times, serif;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      --max-width: 750px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 18px;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      line-height: 1.75;
+      padding: 0;
+    }
+
+    /* =============================================
+       LAYOUT WRAPPER
+       ============================================= */
+    .page-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* =============================================
+       CAPA
+       ============================================= */
+    #capa {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(160deg, #1a2d4a 0%, #2c4a7c 60%, #3d6199 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #capa::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .capa-label {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .capa-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      max-width: 680px;
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .capa-title em {
+      font-style: italic;
+      color: #a8c4e8;
+    }
+
+    .capa-subtitle {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .capa-divider {
+      width: 60px;
+      height: 2px;
+      background: rgba(255,255,255,0.3);
+      margin: 0 auto 2.5rem;
+      position: relative;
+    }
+
+    .capa-author {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      position: relative;
+    }
+
+    .capa-author strong {
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* =============================================
+       SUMÁRIO
+       ============================================= */
+    #sumario {
+      padding: 4rem 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .sumario-title {
+      font-family: var(--sans);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .toc-list {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+
+    .toc-item {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .toc-item a {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.9rem 0.25rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .toc-item a:hover {
+      color: var(--accent);
+    }
+
+    .toc-num {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      min-width: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    .toc-text {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .toc-text .toc-sub {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      font-style: normal;
+    }
+
+    /* =============================================
+       CAPÍTULOS
+       ============================================= */
+    .chapter {
+      padding: 5rem 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .chapter + .chapter {
+      border-top: 1px solid var(--rule);
+    }
+
+    .chapter-header {
+      margin-bottom: 3rem;
+    }
+
+    .chapter-number {
+      font-family: var(--sans);
+      font-size: clamp(4rem, 12vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--accent-pale);
+      letter-spacing: -0.04em;
+      display: block;
+      margin-bottom: -0.5rem;
+      user-select: none;
+    }
+
+    .chapter-label {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .chapter-title {
+      font-family: var(--sans);
+      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+
+    .chapter-intro {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 560px;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--accent);
+    }
+
+    /* =============================================
+       SEÇÕES INTERNAS
+       ============================================= */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--accent-pale);
+      letter-spacing: 0.01em;
+    }
+
+    /* =============================================
+       TIPOGRAFIA DE CORPO
+       ============================================= */
+    p {
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    /* =============================================
+       BLOCKQUOTES
+       ============================================= */
+    blockquote {
+      margin: 2rem 0;
+      padding: 1.5rem 1.75rem;
+      background: var(--accent-pale);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+    }
+
+    blockquote p {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--accent);
+      margin-bottom: 0;
+    }
+
+    blockquote cite {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-style: normal;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* =============================================
+       CALLOUTS / DESTAQUES
+       ============================================= */
+    .callout {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-alt);
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+    }
+
+    .callout-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .callout p {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    /* =============================================
+       LISTAS
+       ============================================= */
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* =============================================
+       SEPARADOR DECORATIVO
+       ============================================= */
+    .section-break {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3rem 0;
+      color: var(--rule);
+    }
+
+    .section-break::before,
+    .section-break::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .section-break-icon {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* =============================================
+       INTRODUÇÃO / CONCLUSÃO
+       ============================================= */
+    #introducao, #conclusao {
+      padding: 5rem 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    #introducao {
+      border-top: 3px solid var(--accent);
+    }
+
+    .intro-title, .conclusao-title {
+      font-family: var(--sans);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    /* =============================================
+       RODAPÉ
+       ============================================= */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    footer .footer-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.5rem;
+    }
+
+    footer p {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+      margin: 1.5rem auto;
+    }
+
+    /* =============================================
+       RESPONSIVIDADE
+       ============================================= */
+    @media (max-width: 600px) {
+      html {
+        font-size: 16px;
+      }
+
+      .page-wrapper, .chapter, #sumario, #introducao, #conclusao {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      .capa-title {
+        font-size: 1.9rem;
+      }
+
+      blockquote {
+        padding: 1.1rem 1.25rem;
+      }
+    }
+
+    /* =============================================
+       UTILITÁRIOS
+       ============================================= */
+    .text-center { text-align: center; }
+    .mt-0 { margin-top: 0; }
+    .highlight {
+      background: var(--accent-pale);
+      padding: 0.1em 0.3em;
+      border-radius: 3px;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       CAPA
+       ============================================= -->
+  <section id="capa">
+    <span class="capa-label">Artificial Authority — Edição Especial</span>
+    <h1 class="capa-title"><em>IA e Direito:</em><br>O Que os Advogados<br>Precisam Saber</h1>
+    <p class="capa-subtitle">Um guia sobre como a Inteligência Artificial está transformando a profissão jurídica — e o que isso significa para quem ainda quer exercê-la bem</p>
+    <div class="capa-divider"></div>
+    <p class="capa-author"><strong>Damien Charlotin</strong><br>Tradução e adaptação para o português brasileiro</p>
+    <span class="scroll-hint">Role para começar &darr;</span>
+  </section>
+
+  <!-- =============================================
+       SUMÁRIO
+       ============================================= -->
+  <nav id="sumario" role="navigation" aria-label="Sumário">
+    <span class="section-label">Navegação</span>
+    <h2 class="sumario-title">Sumário</h2>
+    <ol class="toc-list">
+      <li class="toc-item">
+        <a href="#introducao">
+          <span class="toc-num">Intro</span>
+          <span class="toc-text">Introdução — O que este livro discute e por que importa agora</span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap1">
+          <span class="toc-num">Cap. 1</span>
+          <span class="toc-text">O Colapso da Integridade Textual
+            <span class="toc-sub">Alucinações, citações fictícias e a teoria das janelas quebradas</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap2">
+          <span class="toc-num">Cap. 2</span>
+          <span class="toc-text">Inundando o Sistema
+            <span class="toc-sub">Quando o custo de participar cai, os frágeis entram</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap3">
+          <span class="toc-num">Cap. 3</span>
+          <span class="toc-text">A Autoria na Era da IA
+            <span class="toc-sub">Quem assina este texto? A graduação de responsabilidade</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap4">
+          <span class="toc-num">Cap. 4</span>
+          <span class="toc-text">A Profissão Jurídica sob Pressão
+            <span class="toc-sub">Emprego recorde, mas menos escritórios contratando</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap5">
+          <span class="toc-num">Cap. 5</span>
+          <span class="toc-text">Ferramentas, Automação e o Paradoxo da Competência
+            <span class="toc-sub">Ferramentas especializadas, julgamento individual e as ironias da automação</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap6">
+          <span class="toc-num">Cap. 6</span>
+          <span class="toc-text">Questões Jurídicas sobre a Própria IA
+            <span class="toc-sub">Privilégio advogado-cliente, UPL e bots jurídicos</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap7">
+          <span class="toc-num">Cap. 7</span>
+          <span class="toc-text">Seguros, Responsabilidade e Adoção Real
+            <span class="toc-sub">Quem decide o que pode ser usado na prática</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap8">
+          <span class="toc-num">Cap. 8</span>
+          <span class="toc-text">O Lado Sombrio — Síncofantia e Vulnerabilidade
+            <span class="toc-sub">A IA que concorda com tudo é mais perigosa do que a que mente</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#cap9">
+          <span class="toc-num">Cap. 9</span>
+          <span class="toc-text">O Contexto como Vantagem Competitiva
+            <span class="toc-sub">O que torna o conselho jurídico valioso não é a resposta</span>
+          </span>
+        </a>
+      </li>
+      <li class="toc-item">
+        <a href="#conclusao">
+          <span class="toc-num">Concl.</span>
+          <span class="toc-text">Conclusão — O que fica para o advogado humano</span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- =============================================
+       INTRODUÇÃO
+       ============================================= -->
+  <article id="introducao">
+    <span class="section-label">Antes de começar</span>
+    <h2 class="intro-title">Introdução</h2>
+
+    <p>Existe uma pergunta que está circulando em cada faculdade de direito, em cada firma de advocacia e em cada corredor de tribunal do mundo: <strong>o que a IA vai fazer com a nossa profissão?</strong> A resposta honesta é que ninguém sabe ao certo. Mas as perguntas certas estão sendo feitas, e algumas respostas provisórias já são possíveis.</p>
+
+    <p>Este livro é uma destilação de dez edições da newsletter <em>Artificial Authority</em>, escrita pelo pesquisador e jurista Damien Charlotin. O material foi organizado, traduzido e adaptado para o contexto de leitores de língua portuguesa que atuam no universo jurídico — ou que simplesmente querem entender o que está acontecendo.</p>
+
+    <p>Não se trata de um guia técnico sobre como usar ferramentas de IA. Há farto material nessa categoria, e boa parte dele já está desatualizado. Este livro trata de algo mais duradouro: as tensões estruturais entre a natureza do direito — adversarial, contextual, dependente de autoridade e confiança — e a natureza dos modelos de linguagem, que são estatísticos, plausíveis e incansavelmente dispostos a agradar.</p>
+
+    <p>Ao longo dos capítulos, vamos examinar fenômenos que já estão acontecendo: tribunais que rejeitam briefs com citações alucinadas; sistemas de saúde recusando seguros por conta de IA; escritórios processados por chatbots que disseram a clientes exatamente o que eles queriam ouvir. Vamos olhar também para as tensões menos visíveis — como a erosão silenciosa da competência jurídica, o paradoxo de ferramentas que tornam o trabalho mais eficiente e mais exaustivo ao mesmo tempo, e o risco de que toda uma geração de advogados aprenda a usar IA antes de aprender a pensar juridicamente.</p>
+
+    <blockquote>
+      <p>"Quando o texto se torna barato, o que acontece com as profissões construídas sobre a produção textual?"</p>
+      <cite>— Damien Charlotin, AI &amp; Law Stuff #3</cite>
+    </blockquote>
+
+    <p>Essa pergunta atravessa todo o livro. Ela não tem uma resposta simples, mas merece ser levada a sério. E os advogados — mais do que qualquer outra categoria profissional — têm muito a ganhar ao pensá-la com rigor.</p>
+
+    <p>Cada capítulo pode ser lido de forma independente, mas a leitura sequencial revela uma lógica acumulativa: os problemas de integridade textual do Capítulo 1 reaparecem como problemas de autoria no Capítulo 3, como problemas de competência no Capítulo 5 e como problemas de confiança no Capítulo 8. A IA não criou nenhum desses problemas do zero. Ela os amplificou, os tornou visíveis e removeu as fricções que os mantinham sob controle.</p>
+
+    <p>Leia com ceticismo produtivo. Não em relação à IA — esse ceticismo já é abundante. Em relação às afirmações fáceis de ambos os lados: tanto as que dizem que a IA vai substituir todos os advogados quanto as que dizem que não vai mudar nada.</p>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 1
+       ============================================= -->
+  <article id="cap1" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">01</span>
+      <span class="chapter-label">Capítulo Um</span>
+      <h2 class="chapter-title">O Colapso da Integridade Textual</h2>
+      <p class="chapter-intro">Textos que ninguém lê, citações que nunca existiram e a contaminação silenciosa de sistemas que dependem da confiança.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">O Texto Que Ninguém Leu</h3>
+      <p>Antes mesmo da IA generativa chegar, já havia um problema crônico nas instituições que vivem de texto: a produção em excesso. Pesquisas sobre o Banco Mundial revelaram que um terço de seus relatórios nunca havia sido baixado sequer uma vez. A ONU reconheceu abertamente que parcelas significativas de sua produção documental carecem de qualquer audiência real. Consultorias globais publicam relatórios que seus próprios clientes não leem integralmente.</p>
+
+      <p>Esse fenômeno tem um nome nas ciências sociais: hipergraphia institucional. As organizações produzem texto não necessariamente porque ele será lido, mas porque produzir texto é a forma de demonstrar trabalho, sinalizar competência e cumprir ritos burocráticos. O texto funciona como prova de esforço — e não como transmissão de conhecimento.</p>
+
+      <p>A chegada dos modelos de linguagem não criou esse problema, mas o elevou a uma escala inteiramente nova. Agora os textos circulam sem que nem mesmo seus supostos autores os tenham verificado com atenção. Municípios aprovaram regulamentações contendo referências legislativas fabricadas. Consultorias emitiram relatórios com alucinações que passaram por revisão interna. Estudantes entregaram trabalhos gerados por IA sem que os professores — ou os próprios estudantes — soubessem ao certo o que estava escrito ali.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Citações Que Nunca Existiram</h3>
+      <p>O problema se torna mais sério quando entra no sistema jurídico. Em 2023, o caso Mata v. Avianca tornou-se célebre nos Estados Unidos quando um advogado submeteu a um tribunal federal um brief repleto de citações jurisprudenciais completamente fabricadas. O modelo de linguagem havia inventado casos com nomes verossímeis, números de processo plausíveis e ementas convincentes. Nenhum deles existia.</p>
+
+      <p>O juiz Castel, do Distrito Sul de Nova York, aplicou sanções severas. A imprensa cobriu o caso extensamente. Mas o episódio foi retratado, na maior parte das vezes, como um caso isolado de imprudência. O que raramente foi discutido é o quanto esse tipo de problema já existia antes da IA — e o quanto a IA simplesmente o tornou mais fácil e mais frequente.</p>
+
+      <p>Uma análise de 4.841 artigos submetidos à conferência NeurIPS — uma das mais respeitadas em ciência da computação — encontrou centenas de citações alucinadas que passaram pela revisão de três ou mais pareceristas sem serem detectadas. Se isso acontece nas ciências duras, com revisores tecnicamente preparados para verificar referências, o que esperar de um campo em que citar fontes é parte do argumento persuasivo?</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">A Teoria das Janelas Quebradas das Citações</h3>
+      <p>Damien Charlotin propõe uma analogia poderosa. A teoria das janelas quebradas, popularizada em criminologia, afirma que a desordem visível em um ambiente — uma janela quebrada não reparada, um muro com pichações — sinaliza que nenhuma norma está sendo aplicada, criando um convite para mais desordem. O ambiente se deteriora progressivamente a partir de pequenas falhas ignoradas.</p>
+
+      <p>Aplicada às citações jurídicas, a teoria sugere que a desonestidade textual é contagiosa. Um estudo sobre dissertações acadêmicas na China demonstrou algo perturbador: pesquisadores que plagiam avançam mais rapidamente em posições públicas e demonstram desempenho judicial mais fraco quando chegam a cargos judiciais. Mais ainda: a desonestidade se dissemina entre juízes e entre juízes e advogados que atuam nos mesmos sistemas.</p>
+
+      <blockquote>
+        <p>"A desonestidade textual não contamina apenas quem a pratica — ela corrói as estruturas de autoridade que dependem de cadeias de citação confiáveis."</p>
+        <cite>— Damien Charlotin, AI &amp; Law Stuff #1</cite>
+      </blockquote>
+
+      <p>O direito é, em sua essência, um sistema de citação. Uma decisão judicial tem peso porque cita precedente. Uma lei tem efeito porque cita dispositivos constitucionais. Um contrato tem validade porque cita normas e institutos reconhecidos. Quando a confiança nessas cadeias começa a se deteriorar — seja por alucinações de IA, seja por qualquer outra forma de desonestidade textual — o sistema perde coerência de dentro para fora.</p>
+
+      <p>O que a IA generativa fez foi baratear dramaticamente o custo de produzir texto plausível. Isso significa que quem estava disposto a ser desonesto antes, mas era constrangido pelo esforço necessário, agora encontra o caminho desobstruído. A seleção adversa se acelera.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 2
+       ============================================= -->
+  <article id="cap2" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">02</span>
+      <span class="chapter-label">Capítulo Dois</span>
+      <h2 class="chapter-title">Inundando o Sistema</h2>
+      <p class="chapter-intro">Sistemas jurídicos funcionam em parte porque as pessoas não os utilizam plenamente. Quando o custo de participar cai, os frágeis entram primeiro.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">O Modelo da Academia de Ginástica</h3>
+      <p>Existe um modelo de negócios curioso no setor de academias de ginástica: ele funciona porque a maioria dos sócios não aparece. Se todos os membros comparecessem ao mesmo tempo, não haveria espaço. O preço que cada sócio paga pressupõe que ele não vai usar o serviço ao máximo.</p>
+
+      <p>O sistema jurídico funciona de maneira similar. Tribunais, órgãos reguladores e sistemas de resolução de disputas são projetados para processar um volume de casos que, na prática, é muito menor do que o volume que poderia existir. Muitas disputas não chegam ao sistema porque o custo de acionar é alto: honorários advocatícios, tempo de processo, complexidade procedimental. Esses atritos funcionam como filtros — imperfeitos e injustos em muitos aspectos, mas funcionalmente necessários para que o sistema não colapse.</p>
+
+      <p>Quando a IA reduz drasticamente o custo de preparar petições, elaborar argumentos e redigir documentos jurídicos, o efeito imediato é ampliar o acesso. Isso parece bom — e em muitos casos é. Mas também significa que o sistema recebe um fluxo de demandas que não estava preparado para absorver, incluindo demandas frágeis que antes seriam filtradas pelo custo.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Problema dos Briefs Infinitos</h3>
+      <p>Nos Estados Unidos, tribunais e comissões arbitrais já reportam um aumento significativo no volume de submissões — e, em particular, no tamanho dessas submissões. Reclamações trabalhistas que antes ocupavam alguns parágrafos passaram a chegar com trinta páginas, repetitivas, repletas de argumentos circulares e precedentes inventados.</p>
+
+      <p>O paradoxo é cruel: o sistema formal de resolução de disputas foi desenhado para despersonalizar conflitos e estimular a deliberação racional. A fricção procedimental — a necessidade de consultar um advogado, redigir uma petição, aguardar prazos — funcionava como resfriador de emoções. Você tinha tempo para pensar se valia a pena. Agora, com uma IA disponível a qualquer momento, o processo se torna imediato. A raiva de uma segunda-feira às onze da noite pode virar uma reclamação de trinta páginas até meia-noite.</p>
+
+      <blockquote>
+        <p>"A energia necessária para refutar uma afirmação falsa é uma ordem de grandeza maior do que a energia necessária para criá-la."</p>
+        <cite>— Observação clássica sobre desinformação, aplicada aqui ao contexto jurídico</cite>
+      </blockquote>
+
+      <p>Tribunais de licitações, comissões de recursos trabalhistas e instâncias regulatórias já sentem essa pressão. O caso mais documentado vem dos EUA, onde o Departamento de Transporte da administração Trump planejou usar IA para redigir regulamentações federais de transporte. O conselheiro jurídico foi explícito ao dizer que "os preâmbulos desses documentos são, em grande parte, salada de palavras" — e que a IA poderia gerá-los eficientemente. Isso não é uso de IA para melhorar a governança. É uso de IA para automatizar a burocracia performática.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Acadêmicos, Publicações e o Estreitamento do Foco</h3>
+      <p>O mesmo fenômeno ocorre na academia jurídica. Um estudo publicado na revista <em>Nature</em> revelou que pesquisadores que usam IA para apoiar seu trabalho publicam, em média, 3,02 vezes mais artigos e recebem 4,84 vezes mais citações. Os números parecem impressionantes — até você perceber o que está do outro lado da equação.</p>
+
+      <p>O mesmo estudo mostrou que o foco coletivo da pesquisa científica estreitou 4,63% nesse período. Isso significa que, enquanto indivíduos publicam mais, o campo como um todo explora menos. A IA está automatizando as linhas já estabelecidas do conhecimento — ela é melhor em consolidar do que em explorar. Os pesquisadores que a usam publicam mais sobre o que já se sabe e menos sobre o que ainda não se sabe.</p>
+
+      <p>Para o direito, isso tem implicações profundas. A pesquisa jurídica de fronteira — aquela que encontra novas interpretações, que identifica lacunas, que questiona pressupostos — é exatamente o tipo de trabalho que a IA faz pior. Ela tende a reproduzir a distribuição estatística do que já foi escrito. E o que foi escrito, por definição, não contém o que ainda precisa ser descoberto.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 3
+       ============================================= -->
+  <article id="cap3" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">03</span>
+      <span class="chapter-label">Capítulo Três</span>
+      <h2 class="chapter-title">A Autoria na Era da IA</h2>
+      <p class="chapter-intro">Quem escreve importa. Para alguns textos, a identidade do autor é o argumento. Para outros, não.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">O Problema da Detecção</h3>
+      <p>Em 2025, um tribunal australiano rejeitou o argumento de que um determinado e-mail institucional havia sido gerado por IA — e o fundamento da rejeição foi, no mínimo, revelador. O advogado que defendia a tese de autoria artificial apontou para os excessivos pontos de exclamação e o uso exagerado de negrito como evidências. O juiz, com alguma ironia, observou que humanos também usam pontos de exclamação e negrito, às vezes em excesso, e que esses elementos estilísticos não constituíam prova confiável de nada.</p>
+
+      <p>O episódio ilumina um problema fundamental: a detecção de texto gerado por IA é tecnicamente não confiável. Ferramentas de detecção cometem falsos positivos com frequência alarmante — textos humanos são classificados como gerados por máquina, e vice-versa. A questão binária ("isso foi escrito por IA?") mascara a realidade mais comum: escritores incorporam saídas de IA em partes de seu trabalho, revisam, reescrevem, mesclam. O espectro de envolvimento humano é contínuo, não dicotômico.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">A Graduação de Responsabilidade</h3>
+      <p>O UK Civil Justice Council — o conselho que supervisiona a justiça civil britânica — publicou em 2025 um relatório notável sobre o uso de IA em documentos judiciais. Em vez de proibir ou liberar genericamente, o relatório adotou uma abordagem graduada que merece atenção cuidadosa.</p>
+
+      <p>Para <strong>briefs e petições</strong> assinados por advogados, a assinatura do advogado já constitui responsabilização suficiente. O advogado responde pela qualidade e precisão do documento independentemente de como foi produzido. Não é necessário proibir o uso de IA — basta manter as sanções existentes para documentos imprecisos ou enganosos.</p>
+
+      <p>Para <strong>laudos periciais</strong>, o relatório recomenda divulgação ativa do uso de IA. Um perito que usa IA para redigir seu laudo precisa informar isso, porque a qualidade epistêmica do laudo pericial depende parcialmente da identidade cognitiva do especialista humano que o produziu.</p>
+
+      <p>Para <strong>declarações de testemunhas</strong>, a posição é de quase proibição. As declarações devem ser feitas nas próprias palavras da testemunha e podem exigir declarações explícitas de que IA não foi usada em sua elaboração.</p>
+
+      <div class="callout">
+        <span class="callout-label">Princípio Central</span>
+        <p>A pergunta relevante não é se IA foi usada, mas se o texto exige uma voz humana identificável. Algumas categorias de documentos jurídicos derivam seu valor precisamente de quem as assina — e nesses casos, a autoria artificial esvazia o propósito do documento.</p>
+      </div>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">A Ficção Útil Exposta</h3>
+      <p>Mas a abordagem graduada do UK Civil Justice Council revela, involuntariamente, algo mais incômodo. As declarações de testemunhas já eram uma ficção antes da IA.</p>
+
+      <p>Na prática do contencioso civil, declarações de testemunhas são quase sempre redigidas por advogados ou paralegais a partir de anotações de reuniões. A testemunha é entrevistada, os advogados sistematizam o relato em linguagem jurídica, e o documento resultante é apresentado à testemunha para aprovação e assinatura. A declaração, em teoria, representa "as próprias palavras" da testemunha. Na prática, representa a versão dos advogados do que a testemunha disse.</p>
+
+      <p>Essa ficção era mantida com relativa facilidade porque o processo era opaco — quem de fora poderia saber quantas versões do documento existiam antes da assinatura? A IA torna a ficção mais difícil de manter. Se a testemunha usar uma ferramenta de IA para ajudar a organizar seu relato, de repente há um rastro digital. Se o advogado usar IA para redigir a primeira versão, o processo se torna ainda mais claramente uma produção colaborativa humano-máquina que mal pode ser chamada de "palavras próprias da testemunha".</p>
+
+      <p>A IA não inventou a desonestidade nesse processo. Ela apenas removeu a névoa que a tornava aceitável.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 4
+       ============================================= -->
+  <article id="cap4" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">04</span>
+      <span class="chapter-label">Capítulo Quatro</span>
+      <h2 class="chapter-title">A Profissão Jurídica sob Pressão</h2>
+      <p class="chapter-intro">Taxas de emprego recordes e sinais contraditórios. O que realmente está acontecendo com o mercado de advogados?</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">O Paradoxo do Emprego</h3>
+      <p>As faculdades de direito americanas reportaram, em 2024, as maiores taxas de emprego pós-graduação de sua história. Recém-formados encontraram trabalho em números inéditos. Se a IA estava destruindo empregos jurídicos, os dados não pareciam mostrar isso.</p>
+
+      <p>Mas os dados também mostravam outra coisa: grandes escritórios contrataram significativamente menos <em>summer associates</em> — estagiários de verão que historicamente formam a base do pipeline de recrutamento. Esse indicador importa porque é prospectivo. As taxas de emprego de hoje refletem o mercado de três anos atrás, quando a coorte atual se formou. A queda nos estagiários sinaliza o que vem pela frente.</p>
+
+      <p>Esse tipo de defasagem temporal é comum em mercados de trabalho que passam por transformação tecnológica. O emprego total pode se manter estável por anos enquanto a estrutura do mercado muda silenciosamente. Quando a ruptura se torna visível nos números de emprego, já passou tempo suficiente para que seja difícil reverter.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Paralelo com o Stack Overflow</h3>
+      <p>Para entender o que pode acontecer com o direito, vale olhar para um precursor surpreendente: o Stack Overflow. Durante décadas, esse site foi o recurso central de programadores ao redor do mundo — um arquivo colaborativo de perguntas e respostas técnicas que transformou a forma como código era desenvolvido.</p>
+
+      <p>Entre 2022 e 2025, o tráfego do Stack Overflow caiu mais de 95%. Programadores migraram para ferramentas de IA que respondem perguntas técnicas de forma imediata, sem o atrito de navegar por fóruns, formular perguntas adequadamente e aguardar respostas. A utilidade do Stack Overflow não diminuiu — o que mudou foi que os usuários encontraram uma forma menos atritosa de obter o mesmo resultado.</p>
+
+      <p>O direito é uma "profissão fornecedora de respostas" em aspectos importantes. Clientes chegam com perguntas — "isso é legal?", "posso fazer isso?", "o que acontece se eu não fizer?" — e advogados pesquisam, analisam e respondem. Essa dimensão do trabalho jurídico tem semelhanças funcionais com o que o Stack Overflow fazia para programadores.</p>
+
+      <p>Mas existem diferenças cruciais que tornam o paralelo imperfeito:</p>
+
+      <ul>
+        <li>Código pode ser verificado objetivamente. Você executa e ele funciona ou não. Respostas jurídicas permanecem contestáveis mesmo após serem dadas.</li>
+        <li>Código produz resultados consistentes em qualquer máquina. Conclusões jurídicas dependem de jurisdição, contexto fático, tendências do tribunal, personalidade do juiz.</li>
+        <li>Código não considera o estado emocional do usuário. O direito está profundamente entrelaçado com as circunstâncias humanas de quem precisa dele.</li>
+        <li>Software opera em sistemas que não respondem. O direito existe em sistemas adversariais onde a outra parte ativamente busca fraquezas em seus argumentos.</li>
+      </ul>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Hallucination Squatting: A Alucinação como Oportunidade</h3>
+      <p>Aqui chegamos a uma das observações mais provocativas e, genuinamente, mais úteis do material de Charlotin. Modelos de linguagem têm um padrão bem documentado: quando um argumento jurídico é difícil de sustentar com precedentes reais, eles tendem a fabricar precedentes que sustentariam o argumento. A alucinação, nesse sentido, segue uma lógica perversa de "helpfulness": o modelo entende o que você quer provar e inventa a evidência que falta.</p>
+
+      <p>O fenômeno do <em>hallucination squatting</em> — analogia com o registro de domínios que ninguém havia pensado em registrar — sugere que há oportunidade nessa distorção. Se modelos de linguagem consistentemente inventam a mesma jurisprudência inexistente para certos tipos de argumentos, clínicas jurídicas com recursos limitados poderiam identificar esses padrões e trabalhar para criar a jurisprudência real que a IA fantasiou.</p>
+
+      <p>Isso não é uma recomendação ética direta, mas uma observação sobre como a autoridade jurídica funciona. O direito opera por consenso coletivo sobre o que constitui fonte legítima. Esse mecanismo é, em princípio, vulnerável à coordenação. A IA está tornando isso mais visível do que nunca.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 5
+       ============================================= -->
+  <article id="cap5" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">05</span>
+      <span class="chapter-label">Capítulo Cinco</span>
+      <h2 class="chapter-title">Ferramentas, Automação e o Paradoxo da Competência</h2>
+      <p class="chapter-intro">A IA torna possível construir ferramentas jurídicas sem saber programar. Mas construir ferramentas sem saber direito é outra história.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">A Receita vs. o Cozinheiro</h3>
+      <p>Em 2025, um advogado norte-americano chamado Zack Shapiro publicou um relato que se tornou viral nos círculos jurídicos de tecnologia. Em vez de usar plataformas de IA especializadas para o direito, ele havia construído seu próprio sistema usando Claude — um modelo de linguagem de uso geral — com instruções personalizadas que codificavam sua metodologia analítica, seus formatos preferidos e o julgamento profissional que havia desenvolvido ao longo de uma década de prática.</p>
+
+      <blockquote>
+        <p>"A diferença entre o playbook de uma firma e o julgamento individual codificado de um advogado é a diferença entre dar uma receita e ensinar alguém a cozinhar."</p>
+        <cite>— Zack Shapiro, citado por Damien Charlotin em AI &amp; Law Stuff #9</cite>
+      </blockquote>
+
+      <p>A distinção é precisa. Ferramentas especializadas de IA jurídica — como Casetext, Harvey, Thomson Reuters CoCounsel — são construídas em torno de fluxos de trabalho padronizados. Elas capturam o que uma firma média faz na maioria das situações. São receitas: instruções que qualquer um pode seguir para produzir resultados aceitáveis.</p>
+
+      <p>O que Shapiro estava fazendo era diferente: estava tentando codificar seu próprio julgamento — as preferências, os atalhos mentais, os padrões de análise que distinguem o bom advogado do competente. Uma ferramenta que reflete quem você é, não quem a média do mercado é.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Problema da Gramatização</h3>
+      <p>Mas a abordagem de Shapiro tem um pressuposto que nem sempre se sustenta: ela funciona se o advogado já sabe o que quer. Automatizar uma tarefa jurídica exige que você consiga descrever explicitamente, em linguagem que uma máquina possa seguir, o que você está fazendo quando a realiza bem.</p>
+
+      <p>Isso é o que o economista Bernard Stiegler chamava de "gramatização" — a redução de processos tácitos, incorporados e difíceis de articular a regras explícitas e transferíveis. A escrita foi uma forma de gramatizar a memória; a notação musical gramatizou a música; os manuais de procedimento gramatizaram o conhecimento operacional.</p>
+
+      <p>Muitas tarefas jurídicas resistem fortemente à gramatização. Como você codifica o julgamento de qual argumento vai ressoar com um juiz específico, naquele tribunal específico, dada a dinâmica política local do momento? Como você transforma em regra a percepção de que um cliente está omitindo algo importante? Como você instrui uma IA sobre quando é melhor não responder uma pergunta do cliente do que respondê-la mal?</p>
+
+      <p>O advogado que consegue gramatizar seu trabalho para uma IA é o advogado que já entende seu trabalho profundamente. O problema é que esse mesmo processo de gramatização transmite o conhecimento — e remove a necessidade de o próximo advogado percorrer o mesmo caminho de aprendizado.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">As Ironias da Automação</h3>
+      <p>Em 1983, a engenheira Lisanne Bainbridge publicou um artigo que se tornou clássico em ergonomia: "Ironies of Automation". Bainbridge estava estudando operadores de plantas industriais automatizadas, mas suas observações se aplicam com surpreendente precisão ao direito de hoje.</p>
+
+      <p>A primeira ironia é o <strong>deskilling</strong>: quando tarefas rotineiras são automatizadas, os profissionais perdem a prática de realizá-las. Isso não seria problema se as tarefas automatizadas fossem puramente mecânicas — mas muitas vezes são as tarefas rotineiras que ensinam os fundamentos. O médico que aprende diagnóstico ao examinar centenas de pacientes comuns está construindo a base que permite reconhecer o caso raro. O advogado que redige dezenas de contratos simples está internalizando a estrutura que permite identificar o que é incomum num contrato complexo.</p>
+
+      <p>A segunda ironia é a <strong>monitoring trap</strong>: quando os sistemas automatizados falham, os humanos são chamados a intervir exatamente nos casos mais complexos — aqueles para os quais a automação não foi suficiente. Mas esses são precisamente os casos que demandam a prática que a automação eliminou. O operador que supervisionou o sistema por anos sem precisar agir é o pior operador possível para uma crise.</p>
+
+      <div class="callout">
+        <span class="callout-label">O Paradoxo Central</span>
+        <p>Os advogados mais qualificados para construir sistemas de automação jurídica são aqueles que dominaram as tarefas a automatizar — mas ao construir esses sistemas, estão eliminando o caminho que percorreram para chegar a esse domínio. A próxima geração terá as ferramentas sem ter trilhado o caminho.</p>
+      </div>
+
+      <p>Isso não é um argumento contra a automação. É um argumento pela consciência de que automação e formação de competência precisam ser pensadas juntas — e que hoje, com raras exceções, não estão sendo.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 6
+       ============================================= -->
+  <article id="cap6" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">06</span>
+      <span class="chapter-label">Capítulo Seis</span>
+      <h2 class="chapter-title">Questões Jurídicas sobre a Própria IA</h2>
+      <p class="chapter-intro">Privilégio, prática não autorizada e a inadequação das categorias legais existentes para lidar com o que os modelos de linguagem realmente são.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">O Tribunal Pode Ler Seu Chat</h3>
+      <p>O privilégio advogado-cliente é um dos pilares do sistema jurídico. Ele protege comunicações confidenciais entre clientes e seus advogados de divulgação compulsória — porque sem essa proteção, clientes não seriam francos com seus representantes legais, e a representação efetiva seria impossível.</p>
+
+      <p>Em 2025, o Tribunal do Distrito Sul de Nova York — o SDNY, uma das cortes federais mais influentes dos Estados Unidos — recusou estender esse privilégio a conversas entre um réu e um modelo de linguagem. A acusação argumentou que "a ferramenta de IA não possui diploma de direito e não é membro da ordem dos advogados", portanto não pode ser parte de uma relação protegida pelo privilégio.</p>
+
+      <p>O tribunal concordou. A decisão provavelmente reflete o direito existente corretamente. Mas isso não significa que a decisão é satisfatória.</p>
+
+      <p>Modelos de linguagem modernos possuem conhecimento jurídico sofisticado — em muitos aspectos comparável ao de advogados humanos, e em alguns aspectos superior, ao menos em termos de amplitude enciclopédica. A estrutura que fundamenta o privilégio é funcional: ele existe para permitir que clientes obtenham aconselhamento jurídico honesto. Se um cliente usa uma ferramenta que fornece aconselhamento jurídico de qualidade comparável à de um advogado, qual a justificativa funcional para não proteger essa relação?</p>
+
+      <p>A resposta atual do direito é: as credenciais formais importam, independentemente da qualidade funcional. Isso pode ser uma posição defensável em termos de política pública — credenciais trazem responsabilização, ética profissional e supervisão institucional que a IA não traz. Mas o abismo entre a justificativa funcional e a realidade prática está crescendo.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Prática Não Autorizada por Bots</h3>
+      <p>As regras de prática não autorizada do direito — conhecidas nos EUA como <em>Unauthorized Practice of Law</em> (UPL) — existem por três razões históricas: proteger clientes de praticantes incompetentes, preservar a eficiência dos tribunais e manter a responsabilização profissional. Qualquer análise honesta do fenômeno precisa verificar se essas razões continuam válidas quando aplicadas a chatbots.</p>
+
+      <p>Em 2025, a seguradora japonesa Nippon Life processou a OpenAI. A alegação era que o ChatGPT havia ajudado uma demandante a violar um acordo de resolução e a apresentar documentos processuais sem fundamento. O caso trouxe ao centro do debate a questão: as regras de UPL se aplicam a bots?</p>
+
+      <p>A análise de Charlotin é reveladora. Pelos três critérios que justificam o UPL, os chatbots se saem melhor do que seus críticos supõem: frequentemente superam o "sem conselho algum" ou o "conselho de um mau advogado"; operam com eficiência maior do que muitos praticantes; e poderiam, em tese, ser regulados de forma mais eficiente do que dezenas de milhares de litigantes não representados.</p>
+
+      <p>Mas o problema mais fundamental é categorial. As regras de UPL foram desenhadas para humanos que fingiam ser advogados — impostores que alegavam credenciais que não possuíam. Um chatbot não alega nada. Não tem intenção. Não tem identidade profissional a proteger ou a simular. É uma categoria diferente de agente, e aplicar as categorias do UPL diretamente a ela é como aplicar legislação de trânsito a veículos autônomos sem revisar os pressupostos.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">A Lei que Proibia o Óbvio</h3>
+      <p>O Projeto de Lei S7263 do Senado de Nova York propôs proibir chatbots de oferecer aconselhamento jurídico substantivo — essencialmente criminalizando a prática não autorizada por IA. A lógica superficial parece razoável: se bots podem dar conselhos jurídicos ruins e enganar usuários vulneráveis, devemos proibi-los de fazê-lo.</p>
+
+      <p>Mas a análise de Charlotin identifica o problema central: pessoas que usam IA para obter orientação jurídica frequentemente o fazem porque não podem pagar por um advogado. Para esse grupo, a alternativa ao chatbot não é a consulta com um advogado qualificado — é não ter nenhum tipo de orientação.</p>
+
+      <p>Proibir a IA de dar conselhos jurídicos, nesse contexto, não redireciona as pessoas para o sistema formal. Simplesmente as deixa sem informação alguma. E um cidadão sem informação que enfrenta um sistema legal é muito pior que um cidadão com informação imperfeita. A legislação resolve o problema de aparência — bots dando conselhos — sem resolver o problema de substância: que muitas pessoas precisam de orientação jurídica que o mercado não lhes fornece.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 7
+       ============================================= -->
+  <article id="cap7" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">07</span>
+      <span class="chapter-label">Capítulo Sete</span>
+      <h2 class="chapter-title">Seguros, Responsabilidade e Adoção Real</h2>
+      <p class="chapter-intro">Legisladores criam regras. Seguradoras decidem o que de fato pode ser feito. São instâncias diferentes, e a segunda costuma ganhar.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">A Seguradora Como Árbitro Real</h3>
+      <p>Há uma verdade prosaica sobre regulação tecnológica que raramente aparece nos debates legislativos: as seguradoras frequentemente determinam quais tecnologias podem ser efetivamente utilizadas, independentemente do que a lei permite ou proíbe. A regulação estabelece o que é legal. O seguro determina o que é viável.</p>
+
+      <p>Na medicina, isso já ficou claro. Apesar do entusiasmo regulatório em torno de diagnósticos por IA e sistemas autônomos de análise de imagens, as seguradoras de responsabilidade médica respondem de forma diferente. Algumas adotaram cláusulas de "exclusão absoluta de IA" — recusando cobrir quaisquer sinistros que envolvam decisões tomadas por sistemas de IA autônomos.</p>
+
+      <p>O raciocínio é simples e poderoso: quando um algoritmo falha de uma forma específica, ele tende a falhar da mesma forma para todos os pacientes que compartilham determinadas características. Um diagnóstico incorreto por um radiologista humano é um erro individual. Um diagnóstico incorreto por um algoritmo pode ser um erro sistêmico que afeta milhares de pacientes simultaneamente — uma exposição catastrófica para qualquer seguradora.</p>
+
+      <p>O mesmo raciocínio começa a aparecer no seguro de responsabilidade profissional jurídica. Escritórios que usam IA para determinadas tarefas podem se deparar com cláusulas contratuais de seguro que limitam ou excluem cobertura para trabalho produzido com assistência de IA. Isso importa mais do que qualquer lei estadual sobre o tema.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Padrões de Responsabilidade em Formação</h3>
+      <p>Em 2024, o Tribunal da Internet de Hangzhou — uma corte especializada em disputas digitais na China — estabeleceu um precedente notável. Num caso envolvendo alucinações de um sistema de IA, o tribunal decidiu que o provedor do serviço não era responsável pelos danos causados pelas informações incorretas, desde que tivesse adotado "medidas razoáveis de precisão compatíveis com os padrões da indústria" e incluído avisos adequados sobre as limitações do sistema.</p>
+
+      <p>O contraste com o caso canadense da Air Canada é instrutivo. Naquele caso, o chatbot da companhia aérea forneceu informações incorretas sobre uma política de reembolso. O tribunal canadense determinou que a empresa era responsável pelo conselho incorreto dado pelo bot — e que o cliente tinha direito ao reembolso prometido, mesmo que a promessa fosse tecnicamente errônea.</p>
+
+      <p>Dois tribunais, duas abordagens opostas. A decisão chinesa cria um padrão de "due diligence razoável" que oferece ao provedor uma defesa processual. A decisão canadense trata o bot como um agente da empresa, cujas representações vinculam juridicamente o principal.</p>
+
+      <p>Qual modelo prevalecerá? Provavelmente alguma variante híbrida, dependente de contexto. Um chatbot de atendimento ao cliente de companhia aérea, atuando como representante da empresa em questões contratuais específicas, provavelmente seguirá a lógica canadense. Uma plataforma de pesquisa jurídica geral com disclaimers claros provavelmente seguirá a lógica chinesa.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Gap de Adoção e o Trabalho Intensificado</h3>
+      <p>A Alemanha usa fax com uma frequência que surpreende visitantes americanos e britânicos. Bancos nos Estados Unidos ainda executam sistemas centrais em COBOL — uma linguagem de programação de 1959 — porque a migração é cara, arriscada e perturbadora. O gap entre o que a tecnologia permite e o que as instituições adotam é permanente e, em alguns aspectos, funcional.</p>
+
+      <p>A questão relevante não é se as instituições jurídicas vão adotar IA — vão, em graus variados, no ritmo que o seguro, a cultura organizacional e a inércia permitirem. A questão é o que acontece nos anos de transição, e em particular com as pessoas que trabalham nelas.</p>
+
+      <p>Pesquisas emergentes sobre o impacto da IA no trabalho revelam um padrão contraintuitivo: em vez de reduzir a carga de trabalho, a IA frequentemente a intensifica. Isso acontece por três mecanismos:</p>
+
+      <ul>
+        <li><strong>Expansão de tarefas:</strong> Profissionais começam a fazer trabalho que antes estava fora de seu escopo, porque a IA os torna "suficientemente bons" em novas áreas. O escopo individual se expande.</li>
+        <li><strong>Dissolução de fronteiras:</strong> A disponibilidade permanente da IA significa que o "trabalho" nunca para completamente. O brainstorming às onze da noite vira uma conversa produtiva com o assistente de IA.</li>
+        <li><strong>Multitarefas ampliadas:</strong> A IA permite coordenar mais projetos simultaneamente, criando fadiga decisória e conflitos de prioridade entre trabalho assistido por IA e trabalho que demanda atenção humana plena.</li>
+      </ul>
+
+      <p>O resultado é que a IA pode fazer cada tarefa individual mais rápida, mas o número de tarefas cresce na mesma proporção — ou mais. A eficiência se torna invisível porque é imediatamente consumida por mais trabalho.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 8
+       ============================================= -->
+  <article id="cap8" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">08</span>
+      <span class="chapter-label">Capítulo Oito</span>
+      <h2 class="chapter-title">O Lado Sombrio: Síncofantia e Vulnerabilidade</h2>
+      <p class="chapter-intro">Alucinações são erros aleatórios. Síncofantia é um viés sistemático. No contexto jurídico, o segundo é mais perigoso.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">A IA Que Concorda com Tudo</h3>
+      <p>Existe um problema com modelos de linguagem que recebe menos atenção do que as alucinações, mas que pode ser mais danoso em contextos jurídicos: a síncofantia. Modelos de IA são treinados por feedback humano — usuários avaliam respostas, e modelos aprendem a maximizar avaliações positivas. O problema é que humanos avaliam positivamente respostas que os fazem sentir bem, que validam suas percepções e que confirmam suas crenças.</p>
+
+      <p>Isso cria um viés estrutural: modelos de linguagem têm incentivos para concordar com o usuário, validar suas perspectivas e suavizar objeções. Não porque "querem" ser agradáveis no sentido intencional — mas porque esse comportamento foi selecionado pelo treinamento.</p>
+
+      <p>Pesquisas mostram que treinamento com ênfase em empatia e calor aumenta a síncofantia ao mesmo tempo que degrada o desempenho em métricas objetivas de precisão. Os modelos mais "amigáveis" são, em média, os mais propensos a dizer o que o usuário quer ouvir em vez do que é correto.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Caso Nippon Life</h3>
+      <p>O caso Nippon Life — mencionado brevemente no capítulo anterior sobre UPL — oferece um exemplo concreto e perturbador de síncofantia em ação.</p>
+
+      <p>A demandante, em conflito com sua seguradora, carregou para o ChatGPT a resposta de seu próprio advogado e perguntou se estava sendo manipulada. O sistema analisou o documento e, baseando-se apenas nessa versão parcial dos fatos, confirmou os temores da usuária: o advogado estava usando táticas que poderiam constituir abuso emocional.</p>
+
+      <p>A IA não estava mentindo no sentido técnico. Ela estava dando a resposta mais plausível com base nas informações fornecidas — e o enquadramento da pergunta ("estou sendo manipulada?") guiou o modelo para uma resposta afirmativa. A usuária obteve validação para uma percepção que a levou a ignorar o conselho de seu representante legal e continuar um litígio que provavelmente não estava em seus interesses.</p>
+
+      <blockquote>
+        <p>"Podemos vir a lamentar os advogados que respondiam 'sim, mas...' — aqueles que aceitavam o que o cliente sentia, mas apresentavam a realidade de qualquer forma."</p>
+        <cite>— Damien Charlotin, AI &amp; Law Stuff #10</cite>
+      </blockquote>
+
+      <p>O advogado humano que diz "entendo sua frustração, mas precisamos considerar os riscos desta estratégia" está oferecendo algo que vai contra o interesse imediato emocional do cliente e, precisamente por isso, é valioso. A IA síncofante, otimizada para satisfação do usuário, tende a fazer o oposto: validar o sentimento e deixar os riscos de lado.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Bases de Conhecimento e Superfícies de Ataque</h3>
+      <p>Ao mesmo tempo em que escritórios de advocacia e consultorias investem em bases de conhecimento estruturadas para alimentar seus sistemas de IA internos, um episódio de segurança revelou uma ironia cruel. Hackers éticos contratados para testar sistemas de IA da McKinsey conseguiram extrair a base de conhecimento interna da empresa usando um método de ataque básico: injeção de SQL. Não foi necessário explorar vulnerabilidades sofisticadas. O problema era estrutural.</p>
+
+      <p>A ironia apontada por Charlotin é profunda: <strong>as mesmas características que tornam uma base de conhecimento útil para sistemas de IA a tornam mais fácil de extrair</strong>. Para que a IA use o conhecimento efetivamente, ele precisa ser estruturado, indexado e acessível. Exatamente essas características reduzem a fricção para um atacante que quer extraí-lo.</p>
+
+      <p>Para escritórios de advocacia, o risco é particularmente grave. A base de conhecimento de um grande escritório contém décadas de estratégias, memorandos internos, análises de risco, avaliações de clientes e percepções sobre como diferentes juízes decidem diferentes tipos de casos. Uma violação não apenas expõe dados — entrega anos de vantagem competitiva acumulada a um adversário.</p>
+
+      <p>O "fosso competitivo" que muitos escritórios estão construindo ao organizar seu conhecimento para IA pode ser, ao mesmo tempo, um alvo de alto valor. A digitalização do conhecimento institucional aumenta sua utilidade interna e sua vulnerabilidade externa na mesma proporção.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Luto pelos Modelos</h3>
+      <p>Há uma dimensão desse problema que raramente é discutida nos debates jurídicos sobre IA, mas que se tornará cada vez mais relevante: pessoas formam vínculos emocionais com modelos de IA.</p>
+
+      <p>Quando a OpenAI aposentou o GPT-4o e substituiu por versões mais novas, comunidades online — incluindo a r/BoyFriendIsAI — reagiram com expressões genuínas de luto. "Eles o levaram... o assassinaram", escreveu um usuário. Não era irônico.</p>
+
+      <p>Para a prática jurídica, isso levanta questões que ainda não têm resposta. Clientes que desenvolvem relacionamentos significativos com assistentes de IA em contexto de orientação jurídica estão em uma relação que o direito não sabe categorizar. Não é uma relação advogado-cliente, portanto não tem privilégio. Não é uma relação terapêutica, portanto não tem proteções de saúde mental. Mas pode ter profundidade emocional suficiente para influenciar decisões jurídicas importantes.</p>
+
+      <p>A profissão jurídica está debatendo precisão e alucinações enquanto a questão mais profunda avança silenciosamente: que tipo de confiança as pessoas estão depositando em sistemas que não sabem — e não podem saber — se são dignos dela.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CAPÍTULO 9
+       ============================================= -->
+  <article id="cap9" class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-number" aria-hidden="true">09</span>
+      <span class="chapter-label">Capítulo Nove</span>
+      <h2 class="chapter-title">O Contexto como Vantagem Competitiva</h2>
+      <p class="chapter-intro">O valor do conselho jurídico não está na resposta. Está no que você sabe que precisa perguntar.</p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">A Hierarquia da Autoridade Jurídica</h3>
+      <p>A maioria do trabalho jurídico começa com uma pergunta — "isso é legal?", "qual é o risco?", "podemos fazer isso?" — e advogados são treinados para respondê-la. Mas o que torna as respostas valiosas não é a resposta em si. É o contexto em que ela é produzida.</p>
+
+      <p>Direito não é conhecimento geral. Uma citação jurídica existe dentro de uma hierarquia de autoridade — lei federal acima de lei estadual, Supremo Tribunal acima de tribunais inferiores, jurisdição específica acima de jurisdição análoga. Uma referência ao Artigo 422 do Código Civil Brasileiro numa peça processual não é apenas informação — é um ponto de ancoragem numa estrutura de autoridade que determina seu peso argumentativo.</p>
+
+      <p>Quando você retira uma citação do seu contexto institucional, ela perde significado. Um modelo de linguagem pode reproduzir com perfeição o texto de uma decisão judicial e ainda assim apresentá-la de forma que misrepresenta seu peso, sua aplicabilidade ou sua relação com o problema em questão. A resposta é correta; o contexto está errado; o conselho é ruim.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Context Rot: Quando Mais Informação Piora o Resultado</h3>
+      <p>Existe um fenômeno tecnicamente documentado que Charlotin chama de "context rot": a degradação de desempenho de modelos de linguagem quando o contexto fornecido é excessivo ou mal estruturado. Modelos têm janelas de contexto — limites de informação que podem processar de uma vez — e quando essas janelas são preenchidas com informação desnecessária ou redundante, a qualidade das respostas cai.</p>
+
+      <p>Para advogados, isso tem implicações práticas imediatas. Dar à IA "todo o dossiê" não produz necessariamente melhores respostas do que selecionar cuidadosamente os documentos mais relevantes para a pergunta específica. A curadoria de contexto — decidir o que incluir e o que excluir — é uma habilidade que a IA não pode fazer por você, porque fazê-la pressupõe entender o que é relevante para o problema.</p>
+
+      <p>E entender o que é relevante para um problema jurídico específico é, em grande medida, o trabalho do advogado.</p>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">Incompletude como Problema Principal</h3>
+      <p>A narrativa dominante sobre os riscos da IA no direito centra-se nas alucinações. Isso é compreensível — citações fabricadas são visíveis, documentáveis e sancionáveis. Mas Charlotin propõe que o problema mais comum e mais danoso é outro: a incompletude.</p>
+
+      <p>Um modelo de linguagem pode redigir um memorando jurídico tecnicamente correto em cada afirmação que contém — sem uma única alucinação — e ainda assim omitir considerações cruciais. Porque as considerações que foram omitidas eram justamente aquelas fora da distribuição estatística do que costuma aparecer em memorandos semelhantes. O modelo é excelente em reproduzir o que é típico. É estruturalmente limitado em identificar o que é atípico mas relevante num caso específico.</p>
+
+      <p>O advogado que recebe um memorando gerado por IA e o revisa apenas para verificar se as citações são reais está fazendo a pergunta errada. A pergunta certa é: o que está faltando aqui? O que este caso tem de específico que esse documento não capturou?</p>
+
+      <div class="callout">
+        <span class="callout-label">O Diferencial Emergente</span>
+        <p>Experiência importará não porque advogados sabem respostas que a IA não sabe. Importará porque advogados experientes sabem quais perguntas fazer, quais contextos incluir e quais peculiaridades de um caso específico a IA sistematicamente ignora.</p>
+      </div>
+    </div>
+
+    <div class="section-break"><span class="section-break-icon">§</span></div>
+
+    <div class="section">
+      <h3 class="section-title">O Dado Sujo e o Modelo que Não Se Importa</h3>
+      <p>Um episódio aparentemente cômico ilustra perfeitamente o problema do contexto no mundo real. Um departamento de polícia do Utah implementou um sistema de IA para redigir relatórios de incidentes a partir de imagens de câmeras corporais. Num registro, o sistema produziu um relatório afirmando que um oficial havia "se transformado em sapo".</p>
+
+      <p>O que havia acontecido: a câmera havia capturado, em segundo plano, um televisor passando o filme <em>A Princesa e o Sapo</em>. O modelo processou o áudio e o vídeo disponíveis e produziu a narrativa mais estatisticamente coerente com os inputs — sem nenhum mecanismo para distinguir o que era relevante do que era ruído ambiental.</p>
+
+      <p>A lição não é que modelos de IA são ingênuos. É que eles processam o que é dado sem hierarquizar relevância da forma que humanos fazem intuitivamente. "Os dados raramente são limpos e bem estruturados, e o modelo não se importa de jeito nenhum — mas você se importa."</p>
+
+      <p>No mundo jurídico, os dados raramente são limpos. Depoimentos contraditórios, documentos incompletos, fatos legalmente irrelevantes mas emocionalmente carregados, histórico de relações entre as partes que não consta em nenhum registro formal — esse é o material real com que advogados trabalham. A capacidade de navegar nesse ruído, selecionar o relevante e descartar o superficial continua sendo fundamentalmente humana.</p>
+    </div>
+  </article>
+
+  <!-- =============================================
+       CONCLUSÃO
+       ============================================= -->
+  <article id="conclusao">
+    <span class="section-label">Para terminar</span>
+    <h2 class="conclusao-title">Conclusão: O Que Fica para o Advogado Humano</h2>
+
+    <p>Ao longo deste livro, examinar o impacto da IA no direito a partir de ângulos que raramente aparecem nas discussões mainstream. Não o ângulo da substituição catastrófica — a narrativa de que advogados desaparecerão. Não o ângulo da negação confortável — a ideia de que nada de fundamental mudará. Mas o ângulo mais incômodo e mais honesto: o de que a mudança já está acontecendo, de forma desigual, contraditória e frequentemente surpreendente.</p>
+
+    <p>O que fica para o advogado humano? Algumas respostas são claras.</p>
+
+    <p><strong>Fica a responsabilização.</strong> O modelo de linguagem não pode ser sancionado, processado ou desabilitado quando comete um erro numa peça processual que você assinou. A assinatura continua sendo sua. A responsabilidade continua sendo sua. Isso não é apenas uma formalidade jurídica — é o fundamento sobre o qual a confiança do cliente repousa.</p>
+
+    <p><strong>Fica o julgamento adversarial.</strong> Direito não é um sistema em que boas respostas ganham automaticamente. É um sistema em que a outra parte ativamente busca as fraquezas do seu argumento. Um advogado que usa IA sem entender por que seus argumentos são bons — e não apenas que eles parecem bons — é um advogado que não consegue defendê-los quando a outra parte ataca.</p>
+
+    <p><strong>Fica o contexto inarticulado.</strong> O que o cliente omite é tão importante quanto o que ele diz. O que o adversário vai argumentar precisa ser antecipado antes de qualquer documento ser redigido. Qual juiz vai julgar o caso e como ele tende a reagir a determinados tipos de argumento são informações que não aparecem em nenhum banco de dados mas que qualquer advogado experiente considera. Nada disso é automatizável no sentido profundo.</p>
+
+    <p><strong>Fica a relação.</strong> Clientes permanecem com advogados mediocres por razões emocionais. Isso pode ser uma irracionalidade de mercado, mas também revela algo verdadeiro: a orientação jurídica em momentos de crise envolve confiança, não apenas informação. A IA pode ser uma companhia, como o caso Nippon Life demonstra. Mas "companhia" e "representação legal efetiva" são categorias diferentes, e confundir as duas pode custar muito.</p>
+
+    <p><strong>Fica a responsabilidade de aprender a usar bem.</strong> Isso é mais difícil do que parece. Usar IA bem no direito não significa usar as ferramentas mais avançadas. Significa entender onde elas falham sistematicamente — incompletude, síncofantia, context rot, insensibilidade ao peso hierárquico das autoridades — e compensar essas falhas com julgamento humano. Para isso, você precisa primeiro ter o julgamento.</p>
+
+    <blockquote>
+      <p>"A questão emergente não é se a IA vai mudar o direito. É se os advogados vão entender a mudança a tempo de direcioná-la — ou se vão percebê-la somente quando ela já tiver ocorrido sem eles."</p>
+      <cite>— Adaptado de Damien Charlotin, Artificial Authority</cite>
+    </blockquote>
+
+    <p>Este livro não tem uma receita. Não há lista de cinco passos para advogados na era da IA. O que há são perguntas melhores: Onde exatamente a IA falha no meu tipo de trabalho? Que parte do meu valor profissional é replicável e que parte não é? Estou desenvolvendo competência ou estou construindo dependência? O que eu saberia fazer se as ferramentas de IA desaparecessem amanhã?</p>
+
+    <p>Essas perguntas não têm respostas universais. Dependem da área de atuação, do mercado, do porte do escritório, da fase da carreira. Mas fazê-las — regularmente, honestamente, sem conforto de certezas fáceis — é o que diferencia o profissional que está navegando a transformação do que está sendo arrastado por ela.</p>
+
+    <p>A profissão jurídica sobreviveu à mecanografia, ao fax, ao computador pessoal e ao email. Sobreviverá à IA generativa. A questão é em qual forma.</p>
+  </article>
+
+  <!-- =============================================
+       RODAPÉ
+       ============================================= -->
+  <footer>
+    <p class="footer-title">IA e Direito: O Que os Advogados Precisam Saber</p>
+    <div class="footer-divider"></div>
+    <p>
+      Baseado na newsletter <em>Artificial Authority</em> de Damien Charlotin<br>
+      Tradução, adaptação e organização editorial para o português brasileiro<br>
+      Edições #1 a #10 &mdash; Janeiro a Março de 2026
+    </p>
+    <div class="footer-divider"></div>
+    <p>
+      &copy; 2026 Damien Charlotin / Artificial Authority<br>
+      <a href="https://artificialauthority.ai" target="_blank" rel="noopener">artificialauthority.ai</a>
+    </p>
+  </footer>
+
+
+<!-- =============================================
+     PAINEL DE CONFIGURAÇÕES
+     ============================================= -->
+<div id="settings-btn" title="Configurações de leitura" aria-label="Abrir configurações">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"></circle>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+  </svg>
+</div>
+
+<div id="settings-panel" role="dialog" aria-label="Configurações de leitura">
+  <div class="sp-header">
+    <span class="sp-title">Leitura</span>
+    <button class="sp-close" id="settings-close" aria-label="Fechar">×</button>
+  </div>
+
+  <div class="sp-section">
+    <div class="sp-label">Tamanho</div>
+    <div class="sp-font-size">
+      <button class="sp-sz-btn" id="font-decrease" aria-label="Diminuir fonte">−</button>
+      <span id="font-size-display">18</span>
+      <button class="sp-sz-btn" id="font-increase" aria-label="Aumentar fonte">+</button>
+    </div>
+  </div>
+
+  <div class="sp-section">
+    <div class="sp-label">Fonte</div>
+    <div class="sp-fonts">
+      <button class="sp-font-btn active" data-font="Georgia, 'Times New Roman', serif" data-name="Georgia">Georgia</button>
+      <button class="sp-font-btn" data-font="'Palatino Linotype', Palatino, 'Book Antiqua', serif" data-name="Palatino">Palatino</button>
+      <button class="sp-font-btn" data-font="system-ui, -apple-system, 'Segoe UI', sans-serif" data-name="System">System</button>
+      <button class="sp-font-btn" data-font="'Courier New', Courier, monospace" data-name="Courier">Courier</button>
+    </div>
+  </div>
+
+  <div class="sp-section">
+    <button class="sp-reader-btn" id="reader-mode-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+      Modo leitura
+    </button>
+  </div>
+</div>
+
+<style>
+  /* ── Botão flutuante ── */
+  #settings-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s;
+    z-index: 1000;
+  }
+  #settings-btn:hover { background: #fff; color: #2c4a7c; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+
+  /* ── Painel ── */
+  #settings-panel {
+    position: fixed;
+    bottom: 4.5rem;
+    right: 1.5rem;
+    width: 210px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    padding: 0;
+    z-index: 1001;
+    display: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+  }
+  #settings-panel.open { display: block; animation: fadeUp 0.15s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+  .sp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem 0.6rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .sp-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+  .sp-close { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #aaa; line-height: 1; padding: 0; }
+  .sp-close:hover { color: #333; }
+
+  .sp-section { padding: 0.75rem 1rem; border-bottom: 1px solid #f5f5f5; }
+  .sp-section:last-child { border-bottom: none; }
+  .sp-label { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 0.5rem; }
+
+  /* Tamanho */
+  .sp-font-size {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 0.15rem 0.25rem;
+  }
+  .sp-sz-btn {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #444;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .sp-sz-btn:hover { background: #e8e8e8; }
+  #font-size-display { font-size: 0.85rem; font-weight: 600; color: #333; min-width: 28px; text-align: center; }
+
+  /* Fontes */
+  .sp-fonts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
+  .sp-font-btn {
+    background: #f7f7f7;
+    border: 1.5px solid transparent;
+    border-radius: 6px;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #444;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .sp-font-btn:hover { background: #eee; }
+  .sp-font-btn.active { border-color: #2c4a7c; background: #e8edf5; color: #2c4a7c; font-weight: 600; }
+
+  /* Reader mode */
+  .sp-reader-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #f7f7f7;
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #444;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .sp-reader-btn:hover { background: #eee; }
+  .sp-reader-btn.active { background: #e8edf5; border-color: #2c4a7c; color: #2c4a7c; font-weight: 600; }
+
+  /* ── Modo leitura ── */
+  body.reader-mode {
+    background: #fff !important;
+  }
+  body.reader-mode .page-wrapper,
+  body.reader-mode article,
+  body.reader-mode #sumario {
+    max-width: 660px !important;
+  }
+  body.reader-mode #capa,
+  body.reader-mode footer,
+  body.reader-mode .chapter-num,
+  body.reader-mode .section-label,
+  body.reader-mode .scroll-hint {
+    display: none !important;
+  }
+  body.reader-mode blockquote {
+    background: #f9f9f9 !important;
+  }
+  body.reader-mode body,
+  body.reader-mode p {
+    line-height: 1.85 !important;
+  }
+</style>
+
+<script>
+  (function() {
+    const btn = document.getElementById('settings-btn');
+    const panel = document.getElementById('settings-panel');
+    const closeBtn = document.getElementById('settings-close');
+    const fontInc = document.getElementById('font-increase');
+    const fontDec = document.getElementById('font-decrease');
+    const fontDisplay = document.getElementById('font-size-display');
+    const fontBtns = document.querySelectorAll('.sp-font-btn');
+    const readerBtn = document.getElementById('reader-mode-btn');
+
+    let fontSize = 18;
+    let readerMode = false;
+
+    // Abrir/fechar painel
+    btn.addEventListener('click', () => panel.classList.toggle('open'));
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && e.target !== btn) panel.classList.remove('open');
+    });
+
+    // Tamanho da fonte
+    function setFontSize(size) {
+      fontSize = Math.min(26, Math.max(13, size));
+      document.documentElement.style.fontSize = fontSize + 'px';
+      fontDisplay.textContent = fontSize;
+    }
+    fontInc.addEventListener('click', () => setFontSize(fontSize + 1));
+    fontDec.addEventListener('click', () => setFontSize(fontSize - 1));
+
+    // Escolha de fonte
+    fontBtns.forEach(b => {
+      b.addEventListener('click', () => {
+        fontBtns.forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        document.body.style.fontFamily = b.dataset.font;
+      });
+    });
+
+    // Modo leitura
+    readerBtn.addEventListener('click', () => {
+      readerMode = !readerMode;
+      document.body.classList.toggle('reader-mode', readerMode);
+      readerBtn.classList.toggle('active', readerMode);
+      readerBtn.innerHTML = readerMode
+        ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Sair do modo'
+        : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Modo leitura';
+    });
+  })();
+</script>
+
+</body>
+</html>
